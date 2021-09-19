@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\OrderState;
 use Illuminate\Database\Seeder;
 
 class OrderStateSeeder extends Seeder
@@ -13,6 +14,16 @@ class OrderStateSeeder extends Seeder
      */
     public function run()
     {
-        //
+        OrderState::create([
+            'name'  =>  'completado'
+        ]);
+        
+        OrderState::create([
+            'name'  =>  'cancelado'
+        ]);
+        
+        OrderState::create([
+            'name'  =>  'devuelto'
+        ]);
     }
 }

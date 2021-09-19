@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Client;
+use Database\Factories\ClientFactory;
 use Illuminate\Database\Seeder;
 
 class ClientSeeder extends Seeder
@@ -13,6 +15,6 @@ class ClientSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Client::factory()->count(10)->create();
     }
 }

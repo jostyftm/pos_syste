@@ -14,7 +14,7 @@ class CreateClientOrderItemsTable extends Migration
     public function up()
     {
         Schema::create('client_order_items', function (Blueprint $table) {
-            $table->unsignedBigInteger('client_id');
+            $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('amount');
             $table->unsignedDecimal('price')->default(0);
@@ -22,10 +22,10 @@ class CreateClientOrderItemsTable extends Migration
             $table->unsignedDecimal('total_price')->default(0);
             $table->timestamps();
             
-            $table->primary(['client_id', 'product_id']);
+            $table->primary(['order_id', 'product_id']);
             
-            $table->foreign('client_id')->references('id')
-            ->on('clients')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')
+            ->on('order_clients')->onDelete('cascade');
 
             $table->foreign('product_id')->references('id')
             ->on('products')->onDelete('cascade');

@@ -22,7 +22,11 @@ class ClientFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'name'                      =>  $this->faker->name,
+            'last_name'                 =>  $this->faker->lastName,
+            'identification_number'     =>  $this->faker->numberBetween(100000, 1000000),
+            'telefono'                  =>  $this->faker->phoneNumber,
+            'email'                     =>  $this->faker->unique()->safeEmail
         ];
     }
 }

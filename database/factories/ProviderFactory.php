@@ -21,8 +21,15 @@ class ProviderFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->company;
+        $email = strtolower(trim($name))."@mail.com";
+        $nit = $this->faker->unique()->randomNumber(5)."-1";
+
         return [
-            //
+            'name'      =>  $name,
+            'nit'       =>  $nit,
+            'telefono'  =>  $this->faker->unique->phoneNumber,
+            'email'     =>  $email
         ];
     }
 }
