@@ -31,7 +31,7 @@ class ProductFactory extends Factory
             'description'   =>  $this->faker->text(20),
             'buy_price'     =>  $buyPrice,
             'sell_price'    =>  ($buyPrice * 0.2)+$buyPrice,
-            'stock'         =>  $this->faker->numberBetween(0, 20)
+            'stock'         =>  0
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\OrderProvider;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -15,11 +16,12 @@ class DatabaseSeeder extends Seeder
     private $seeds = [
         'migrate',
         'users',
-        'products',
         'orderState',
+        'products',
+        'provider',
+        'orderProvider',
         'client',
-        'orderClient',
-        'provider'
+        'orderClient'
     ];
 
     /**
@@ -91,5 +93,13 @@ class DatabaseSeeder extends Seeder
     public function provider()
     {
         $this->call(ProviderSeeder::class);
+    }
+
+    /**
+     * 
+     */
+    public function orderProvider()
+    {
+        $this->call(OrderProviderSeeder::class);
     }
 }

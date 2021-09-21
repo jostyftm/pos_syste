@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\OrderProvider;
+use App\Models\Provider;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderProviderFactory extends Factory
@@ -21,11 +22,11 @@ class OrderProviderFactory extends Factory
      */
     public function definition()
     {
+        $providers = Provider::all()->pluck('id');
+
         return [
-            'provider_id',
-            'price',
-            'discount',
-            'total_price'
+            'provider_id'    => $providers->random(),
+            'order_state_id' => 1
         ];
     }
 }

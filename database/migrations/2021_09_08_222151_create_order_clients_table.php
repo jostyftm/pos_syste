@@ -18,9 +18,9 @@ class CreateOrderClientsTable extends Migration
             $table->unsignedBigInteger('client_id');
             $table->unsignedBigInteger('seller_id');
             $table->unsignedInteger('order_state_id');
-            $table->unsignedDecimal('price')->default(0);
-            $table->unsignedDecimal('discount')->default(0);
-            $table->unsignedDecimal('total_price')->default(0);
+            $table->unsignedDecimal('price', 12)->default(0);
+            $table->unsignedDecimal('discount', 12)->default(0);
+            $table->unsignedDecimal('total_price', 12)->default(0);
             $table->timestamps();
 
             $table->foreign('client_id')->references('id')

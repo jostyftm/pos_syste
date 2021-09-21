@@ -17,9 +17,9 @@ class CreateOrderProvidersTable extends Migration
             $table->id();
             $table->unsignedBigInteger('provider_id');
             $table->unsignedInteger('order_state_id');
-            $table->unsignedDecimal('price')->default(0);
-            $table->unsignedDecimal('discount')->default(0);
-            $table->unsignedDecimal('total_price')->default(0);
+            $table->unsignedDecimal('price', 12)->default(0);
+            $table->unsignedDecimal('discount', 12)->default(0);
+            $table->unsignedDecimal('total_price', 12)->default(0);
             $table->timestamps();
 
             $table->foreign('provider_id')->references('id')

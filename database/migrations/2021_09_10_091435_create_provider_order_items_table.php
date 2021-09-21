@@ -14,18 +14,18 @@ class CreateProviderOrderItemsTable extends Migration
     public function up()
     {
         Schema::create('provider_order_items', function (Blueprint $table) {
-            $table->unsignedBigInteger('provider_id');
+            $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('amount');
-            $table->unsignedDecimal('price')->default(0);
-            $table->unsignedDecimal('discount')->default(0);
-            $table->unsignedDecimal('total_price')->default(0);
+            $table->unsignedDecimal('price', 12)->default(0);
+            $table->unsignedDecimal('discount', 12)->default(0);
+            $table->unsignedDecimal('total_price', 12)->default(0);
             $table->timestamps();
             
-            $table->primary(['provider_id', 'product_id']);
+            $table->primary(['order_id', 'product_id']);
             
-            $table->foreign('provider_id')->references('id')
-            ->on('providers')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')
+            ->on('order_providers')->onDelete('cascade');
 
             $table->foreign('product_id')->references('id')
             ->on('products')->onDelete('cascade');

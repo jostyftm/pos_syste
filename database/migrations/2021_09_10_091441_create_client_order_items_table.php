@@ -17,9 +17,9 @@ class CreateClientOrderItemsTable extends Migration
             $table->unsignedBigInteger('order_id');
             $table->unsignedBigInteger('product_id');
             $table->unsignedInteger('amount');
-            $table->unsignedDecimal('price')->default(0);
-            $table->unsignedDecimal('discount')->default(0);
-            $table->unsignedDecimal('total_price')->default(0);
+            $table->unsignedDecimal('price', $total = 12)->default(0);
+            $table->unsignedDecimal('discount', $total = 12)->default(0);
+            $table->unsignedDecimal('total_price', $total = 12)->default(0);
             $table->timestamps();
             
             $table->primary(['order_id', 'product_id']);
