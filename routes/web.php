@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Api\v1\ClientController;
+use App\Http\Controllers\Api\v1\OrderClientController;
+use App\Http\Controllers\Api\v1\ProductController;
+use App\Http\Controllers\Api\v1\ProviderController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,5 +18,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('login');
 });
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('/providers', ProviderController::class);
+Route::resource('/products', ProductController::class);
+Route::resource('/clients', ClientController::class);
+Route::resource('/orderclients', OrderClientController::class);
