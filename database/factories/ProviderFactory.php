@@ -28,7 +28,7 @@ class ProviderFactory extends Factory
         return [
             'name'      =>  $name,
             'nit'       =>  $nit,
-            'telefono'  =>  $this->faker->unique->phoneNumber,
+            'phone'     =>  $this->faker->unique->phoneNumber,
             'email'     =>  $email
         ];
     }

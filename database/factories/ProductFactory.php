@@ -22,12 +22,10 @@ class ProductFactory extends Factory
     public function definition()
     {
         $code = $this->faker->unique()->randomNumber(6);
-        $slug = "producto-{$code}";
         $buyPrice = $this->faker->numberBetween(1000, 50000);
         return [
             'code'          =>  $code,
             'name'          =>  "producto {$code}",
-            'slug'          =>  $slug,
             'description'   =>  $this->faker->text(20),
             'buy_price'     =>  $buyPrice,
             'sell_price'    =>  ($buyPrice * 0.2)+$buyPrice,

@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Models\OrderClient;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class OrderClientController extends Controller
 {
@@ -28,7 +30,7 @@ class OrderClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.orderClients.create');
     }
 
     /**
@@ -39,7 +41,33 @@ class OrderClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if(isset($request->step_1)) {
+            return $this->step1($request);
+        }
+    }
+
+    public function step1(Request $request) {
+
+        $request->validate([
+            'identification_number' =>  'required'
+        ],[
+            'identification_number.required'    =>  'El número de identificación es requerido'
+        ]);
+
+        $client = Client::where('identification_number', $request->identification_number)->first();
+
+        if(is_null($client)){
+            return redirect()->route('orderclients.create')
+            ->with('error', 'El cliente no esta creado, por favor registre el cliente');
+        }
+
+        $order = OrderClient::create([
+            'client_id'     =>  $client->id,
+            'seller_id'     =>  Auth::user()->id,
+            'order_state_id' => 1
+        ]);
+
+        return redirect()->route('orderclients.edit',[$order->id]);
     }
 
     /**
@@ -61,7 +89,8 @@ class OrderClientController extends Controller
      */
     public function edit(OrderClient $orderClient)
     {
-        //
+        return view('dashboard.orderclients.edit')
+        ->with('order', $orderClient);
     }
 
     /**

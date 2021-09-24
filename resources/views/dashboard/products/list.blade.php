@@ -4,10 +4,11 @@
 @section('main')
 
 <div>
-    <div class="d-flex my-3 align-item-between">
+    <div class="d-flex my-3 justify-content-between">
         <div></div>
-        <a class="btn btn-primary btn-sm">Nuevo producto</a>
+        <a href="{{route('products.create')}}" class="btn btn-primary btn-sm">Nuevo producto</a>
     </div>
+    @include('messages')
     <div>
         <table class="table">
             <thead>
@@ -32,7 +33,6 @@
                     <td>{{ $product->stock }}</td>
                     <td>
                         <a class="btn btn-primary btn-sm">Editar</a>
-                        <a class="btn btn-danger btn-sm">Eliminar</a>
                     </td>
                 </tr>
                 @endforeach

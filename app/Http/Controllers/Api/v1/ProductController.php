@@ -27,7 +27,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.products.create');
     }
 
     /**
@@ -38,7 +38,20 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'code'  =>  'required|unique:products',
+            'name'  =>  'required',
+
+        ],[
+            'code.required' =>  'El código es requerido',
+            'code.uinque' =>  'El código ya esta en uso',
+            'name.required' =>  'El nombre del producto es requerido',
+        ]);
+
+        Product::create($request->all());
+
+        return redirect()->route('products.index')
+        ->with('success', 'Producto creado con exito');
     }
 
     /**

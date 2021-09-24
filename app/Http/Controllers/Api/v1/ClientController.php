@@ -27,7 +27,7 @@ class ClientController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.clients.create');
     }
 
     /**
@@ -38,7 +38,21 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'                  =>  'required',
+            'last_name'             =>  'required',
+            'identification_number'  =>  'required|unique:clients'
+        ],[
+            'name.required' =>  'El nombre es requerido',
+            'last_name.required' =>  'El apellido es requerido',
+            'identification_number.unique' =>  'El documento de identidad ya esta registrado',
+            'identification_number.required' =>  'El documento de identidad es requerido',
+        ]);
+
+        Client::create($request->all());
+
+        return redirect()->route('clients.index')
+        ->with('success', 'Cliente creado con exito');
     }
 
     /**
@@ -60,7 +74,7 @@ class ClientController extends Controller
      */
     public function edit(Client $client)
     {
-        //
+        return view('dashboard.clients.edit', compact('client'));
     }
 
     /**
@@ -72,7 +86,22 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        //
+        $request->validate([
+            'name'                  =>  'required',
+            'last_name'             =>  'required',
+            'identification_number'  =>  'required|unique:clients,identification_number,'.$client->id
+        ],[
+            'name.required' =>  'El nombre es requerido',
+            'last_name.required' =>  'El apellido es requerido',
+            'identification_number.unique' =>  'El documento de identidad ya esta registrado',
+            'identification_number.required' =>  'El documento de identidad es requerido', 
+        ]);
+
+        $client->fill($request->all());
+        $client->update();
+
+        return redirect()->route('clients.index')
+        ->with('success', 'Cliente actualizado con exito');
     }
 
     /**

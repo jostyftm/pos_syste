@@ -6,8 +6,9 @@
 <div>
     <div class="d-flex my-3 justify-content-between">
         <div></div>
-        <a class="btn btn-primary btn-sm">Nuevo proovedor</a>
+        <a href="{{route('providers.create')}}" class="btn btn-primary btn-sm">Nuevo proovedor</a>
     </div>
+    @include('messages')
     <div>
         <table class="table">
             <thead>
@@ -17,6 +18,7 @@
                         <th>Nit</th>
                         <th>Teléfono</th>
                         <th>Email</th>
+                        <th>Acción</th>
                     </tr>
                 </thead>
             </thead>
@@ -27,6 +29,14 @@
                     <td>{{ $provider->nit }}</td>
                     <td>{{ $provider->phone }}</td>
                     <td>{{ $provider->email }}</td>
+                    <td>
+                        <a 
+                            class="btn btn-sm btn-primary"
+                            href="{{route('providers.edit', $provider->id)}}"
+                        >
+                            Editar
+                        </a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

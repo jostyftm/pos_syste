@@ -38,7 +38,22 @@ class ProviderController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'  =>  'required',
+            'nit'   =>  'required',
+            'phone'  =>  'required',
+            'email'  =>  'required'
+        ],[
+            'name.required' =>  'El nombre es requerido',
+            'nit.required'  =>  'El nit es requerido',
+            'phone.required' =>  'El teléfono es requerido',
+            'email.required' =>  'El correo es requerido'
+        ]);
+
+        Provider::create($request->all());
+
+        return redirect()->route('providers.index')
+        ->with('success', 'El proveedor fue creado con exito');
     }
 
     /**
@@ -60,7 +75,7 @@ class ProviderController extends Controller
      */
     public function edit(Provider $provider)
     {
-        return view('dashboard.provider.edit');
+        return view('dashboard.provider.edit', compact('provider'));
     }
 
     /**
@@ -72,7 +87,22 @@ class ProviderController extends Controller
      */
     public function update(Request $request, Provider $provider)
     {
-        //
+        $request->validate([
+            'name'  =>  'required',
+            'phone'  =>  'required',
+            'email'  =>  'required|unique:providers,email,'.$provider->id,
+        ],[
+            'name.required' =>  'El nombre es requerido',
+            'phone.required' =>  'El teléfono es requerido',
+            'email.required' =>  'El nombre es requerido',
+            'email.unique' =>  'El email ya esta registrado',
+        ]);
+
+        $provider->fill($request->all());
+        $provider->update();
+
+        return redirect()->route('providers.index')
+        ->with('success', 'El proveedor se actualizo con exito');
     }
 
     /**

@@ -6,7 +6,7 @@
 <div>
     <div class="d-flex my-3 justify-content-between">
         <div></div>
-        <a class="btn btn-primary btn-sm">Nueva venta</a>
+        <a href="{{route('orderclients.create')}}" class="btn btn-primary btn-sm">Nueva venta</a>
     </div>
     <div>
         <table class="table">

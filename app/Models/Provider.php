@@ -12,7 +12,7 @@ class Provider extends Model
     protected $fillable =[
         'name',
         'nit',
-        'telefono',
+        'phone',
         'email'
     ];
 }

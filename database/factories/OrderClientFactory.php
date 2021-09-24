@@ -30,7 +30,7 @@ class OrderClientFactory extends Factory
         return [
             'client_id'         =>  $clients->random(),
             'seller_id'         =>  $seller->random(),
-            'order_state_id'    =>  1,
+            'order_state_id'    =>  2,
         ];
     }
 }

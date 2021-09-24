@@ -6,8 +6,9 @@
 <div>
     <div class="d-flex my-3 justify-content-between">
         <div></div>
-        <a class="btn btn-primary btn-sm">Nuevo cliente</a>
+        <a href="{{route('clients.create')}}" class="btn btn-primary btn-sm">Nuevo cliente</a>
     </div>
+    @include('messages')
     <div>
         <table class="table">
             <thead>
@@ -33,8 +34,12 @@
                     <td>{{ $client->phone }}</td>
                     <td>{{ $client->email }}</td>
                     <td>
-                        <a class="btn btn-primary btn-sm">Editar</a>
-                        <a class="btn btn-danger btn-sm">Eliminar</a>
+                        <a 
+                            class="btn btn-primary btn-sm"
+                            href="{{route('clients.edit', $client->id)}}"
+                        >
+                            Editar
+                        </a>
                     </td>
                 </tr>
                 @endforeach

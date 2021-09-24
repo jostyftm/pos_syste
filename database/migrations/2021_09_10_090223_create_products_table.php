@@ -17,8 +17,7 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('name');
-            $table->string('slug')->unique();
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->decimal('buy_price')->default(0);
             $table->decimal('sell_price')->default(0);
             $table->unsignedInteger('stock')->default(0);

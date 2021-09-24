@@ -15,6 +15,10 @@ class OrderStateSeeder extends Seeder
     public function run()
     {
         OrderState::create([
+            'name'  =>  'creada'
+        ]);
+
+        OrderState::create([
             'name'  =>  'completado'
         ]);
         
