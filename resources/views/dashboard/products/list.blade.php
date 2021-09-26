@@ -32,7 +32,7 @@
                     <td>{{ $product->sell_price }}</td>
                     <td>{{ $product->stock }}</td>
                     <td>
-                        <a class="btn btn-primary btn-sm">Editar</a>
+                        <a href="{{route('products.edit', $product->id)}}" class="btn btn-primary btn-sm">Editar</a>
                     </td>
                 </tr>
                 @endforeach
