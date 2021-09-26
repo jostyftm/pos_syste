@@ -15,7 +15,7 @@ class ProviderController extends Controller
      */
     public function index()
     {
-        $providers = Provider::paginate(6);
+        $providers = Provider::orderBy('id','desc')->paginate(6);
 
         return view('dashboard.provider.list', compact('providers'));
     }

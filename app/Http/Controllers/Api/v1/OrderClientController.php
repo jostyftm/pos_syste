@@ -19,6 +19,7 @@ class OrderClientController extends Controller
     public function index()
     {
         $orderClients = OrderClient::with(['client','seller','state'])
+        ->orderBy('id','desc')
         ->paginate(6);
 
         return view('dashboard.orderClients.list', compact('orderClients'));
