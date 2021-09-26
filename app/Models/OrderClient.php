@@ -58,8 +58,24 @@ class OrderClient extends Model
     /**
      * 
      */
+    public function getPriceSell()
+    {
+        return $this->products()->sum('total_price');
+    }
+
+    /**
+     * 
+     */
+    public function getDiscount()
+    {
+        return $this->products()->sum('discount');
+    }
+
+    /**
+     * 
+     */
     public function getTotalSell()
     {
-        return "$ ".number_format($this->products()->sum('total_price'));
+        return ($this->getPriceSell() - $this->getDiscount());
     }
 }

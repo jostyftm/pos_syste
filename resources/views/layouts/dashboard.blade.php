@@ -5,9 +5,11 @@
         <div class="row">
             <div class="col-md-2">
                 <nav class="nav flex-column">
+                    @role('admin')
                     <a class="nav-link" href="{{route('home')}}">Inicio</a>
                     <a class="nav-link" href="{{route('providers.index')}}">Proveedores</a>
                     <a class="nav-link" href="{{route('products.index')}}">Productos</a>
+                    @endrole
                     <a class="nav-link" href="{{route('clients.index')}}">Clientes</a>
                     <a class="nav-link" href="{{route('orderclients.index')}}">Ventas</a>
                 </nav>
