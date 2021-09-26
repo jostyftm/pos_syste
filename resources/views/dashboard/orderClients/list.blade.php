@@ -8,6 +8,7 @@
         <div></div>
         <a href="{{route('orderclients.create')}}" class="btn btn-primary btn-sm">Nueva venta</a>
     </div>
+    @include('messages')
     <div>
         <table class="table">
             <thead>
@@ -32,6 +33,11 @@
                     <td>{{ $order->price }}</td>
                     <td>{{ $order->discount }}</td>
                     <td>{{ $order->total_price }}</td>
+                    <td>
+                        <a href="{{route('orderclients.show', $order->id)}}" class="btn btn-info btn-sm">
+                            Ver
+                        </a>
+                    </td>
                 </tr>
                 @endforeach
             </tbody>

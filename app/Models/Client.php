@@ -21,6 +21,14 @@ class Client extends Model
     /**
      * 
      */
+    public function getFullNameAttribute()
+    {
+        return "{$this->name} {$this->last_name}";
+    }
+
+    /**
+     * 
+     */
     public function orders(): HasMany
     {
         return $this->hasMany(OrderClient::class, 'client_id');

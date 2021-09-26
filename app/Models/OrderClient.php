@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Traits\HasProducts;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -9,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class OrderClient extends Model
 {
-    use HasFactory;
+    use HasFactory, HasProducts;
 
     protected $fillable = [
         'client_id',
@@ -50,6 +51,15 @@ class OrderClient extends Model
     public function products(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'client_order_items', 'order_id', 'product_id')
+        ->withPivot(['amount', 'price', 'discount', 'total_price'])
         ->using(ClientOrderItem::class);
+    }
+
+    /**
+     * 
+     */
+    public function getTotalSell()
+    {
+        return "$ ".number_format($this->products()->sum('total_price'));
     }
 }

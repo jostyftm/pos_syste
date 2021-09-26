@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\OrderClient;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -76,9 +77,10 @@ class OrderClientController extends Controller
      * @param  \App\Models\OrderClient  $orderClient
      * @return \Illuminate\Http\Response
      */
-    public function show(OrderClient $orderClient)
+    public function show(OrderClient $orderclient)
     {
-        //
+        return view('dashboard.orderclients.show')
+        ->with('order', $orderclient);
     }
 
     /**
@@ -87,10 +89,14 @@ class OrderClientController extends Controller
      * @param  \App\Models\OrderClient  $orderClient
      * @return \Illuminate\Http\Response
      */
-    public function edit(OrderClient $orderClient)
+    public function edit(Request $request, OrderClient $orderclient)
     {
-        return view('dashboard.orderclients.edit')
-        ->with('order', $orderClient);
+        $orderclient->client;
+        
+        $total = $orderclient->products()->sum('total_price');
+
+        return view('dashboard.orderclients.edit', compact('total'))
+        ->with('order', $orderclient);
     }
 
     /**
@@ -100,9 +106,40 @@ class OrderClientController extends Controller
      * @param  \App\Models\OrderClient  $orderClient
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, OrderClient $orderClient)
+    public function update(Request $request, OrderClient $orderclient)
     {
-        //
+        
+        $product = Product::where('code', $request->product_code)->first();
+
+        
+        if($request->action != "sell" && is_null($product)){
+            return back()
+            ->with('error', 'El producto no existe');
+        }else if($request->action != "sell" && $product->stock <= 0){
+            return back()
+            ->with('error', 'El producto no tiene stock');
+        }
+        
+        switch($request->action){
+            case "add_item":
+                $orderclient->addProduct($request, $product);
+                
+                return back()->with('success', 'Producto agregado');
+                break;
+            case "remove_item":
+                $orderclient->removeProduct($product);
+
+                return back()->with('success', 'Producto eliminado');
+                break;
+            case "sell":
+                
+                $orderclient->update([
+                    'order_state_id' => 2
+                ]);
+
+                return redirect()->route('orderclients.index')->with('success', 'Venta realizada');
+                break;
+        }
     }
 
     /**
