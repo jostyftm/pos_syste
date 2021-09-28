@@ -39,6 +39,7 @@ class StatisticsController extends Controller
         ->whereRaw(DB::raw('MONTH(order_clients.created_at) = MONTH(CURRENT_DATE())'))
         ->groupByRaw(DB::raw('name'))
         ->orderByDesc('total')
+        ->limit(5)
         ->get();
 
         return response()->json($bestClient);

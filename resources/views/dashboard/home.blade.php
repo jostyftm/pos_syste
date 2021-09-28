@@ -15,8 +15,9 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-6 bg-white rounded shadow-sm my-3 py-1">
-                <h5>Clientes del mes</h5>
+            <div class="col-md-12 bg-white rounded shadow-sm my-3 py-1">
+                <canvas id="monthlyBestClient" height="70">></canvas>
+                {{-- <h5>Clientes del mes</h5>
                 <table class="table">
                     <thead>
                         <tr>
@@ -32,7 +33,7 @@
                             </tr>
                         @endforeach
                     </tbody>
-                </table>
+                </table> --}}
             </div>
         </div>
     </div>
@@ -48,6 +49,7 @@
         
         var dailySells = document.getElementById('dailySells').getContext('2d');
         var monthlySells = document.getElementById('monthlySells').getContext('2d');
+        var monthlyBestClient = document.getElementById('monthlyBestClient').getContext('2d');
         
 
         const getDailySells = async () => {
@@ -55,6 +57,16 @@
             const data = await axios.get('/statistics/dailySells');
 
             let labels = data.data.map((item, index) => item.day);
+            let values = data.data.map((item, index) => item.total);
+            
+            return [labels, values]
+        }
+        
+        const getMonthlyBestClient = async () => {
+
+            const data = await axios.get('/statistics/bestClient');
+
+            let labels = data.data.map((item, index) => item.name);
             let values = data.data.map((item, index) => item.total);
             
             return [labels, values]
@@ -130,9 +142,33 @@
                 },
             });
         }
+        
+        const graphicBestClient = async () =>{
+            let data = await getMonthlyBestClient();
+
+            var monthlyBestClientChart = new Chart(monthlyBestClient, {
+                type: 'line',
+                data: {
+                    labels: data[0],
+                    datasets: [{
+                        label: 'Los 5 mejores clientes del mes',
+                        data: data[1],
+                        backgroundColor: [
+                            '#6f42c1'
+                        ],
+                        borderColor: [
+                            '#6610f2'
+                        ],
+                        tension: 0.2,
+                        borderWidth: 1
+                    }]
+                },
+            });
+        }
 
         graphicDailySells();
         graphicMonthlySells();
+        graphicBestClient();
 
     </script>
 @endsection
