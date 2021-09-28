@@ -76,6 +76,6 @@ class OrderClient extends Model
      */
     public function getTotalSell()
     {
-        return ($this->getPriceSell() - $this->getDiscount());
+        return $this->getPriceSell();
     }
 }
