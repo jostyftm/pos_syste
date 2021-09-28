@@ -38,7 +38,7 @@ class OrderClientSeeder extends Seeder
 
                 $amount = random_int(1, 5);
                 $net_price = $amount * $product->sell_price;
-                $discount = ($net_price * (random_int(0, 30)/100));
+                $discount = 0;
                 $price = $net_price - $discount;
 
                 $orderClient->products()->attach(
@@ -82,7 +82,7 @@ class OrderClientSeeder extends Seeder
 
                 $amount = random_int(1, 5);
                 $net_price = $amount * $product->sell_price;
-                $discount = ($net_price * (random_int(0, 30)/100));
+                $discount = 0;
                 $price = $net_price - $discount;
 
                 $orderClient->products()->attach(

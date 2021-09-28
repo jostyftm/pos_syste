@@ -18,7 +18,6 @@
                         <th>Vendedor</th>
                         <th>Estado</th>
                         <th>Precio</th>
-                        <th>Descuento</th>
                         <th>Total</th>
                         <th>Acción</th>
                     </tr>
@@ -31,7 +30,6 @@
                     <td>{{ $order->seller->name }}</td>
                     <td>{{ $order->state->name }}</td>
                     <td>$ {{ $order->getPriceSell() }}</td>
-                    <td>$ {{ $order->getDiscount() }}</td>
                     <td>$ {{ $order->getTotalSell() }}</td>
                     <td>
                         <a href="{{route('orderclients.show', $order->id)}}" class="btn btn-info btn-sm">
