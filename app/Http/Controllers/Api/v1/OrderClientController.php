@@ -93,10 +93,11 @@ class OrderClientController extends Controller
     public function edit(Request $request, OrderClient $orderclient)
     {
         $orderclient->client;
-        
+        $products = Product::all();
+
         $total = $orderclient->products()->sum('total_price');
 
-        return view('dashboard.orderclients.edit', compact('total'))
+        return view('dashboard.orderclients.edit', compact('total', 'products'))
         ->with('order', $orderclient);
     }
 
@@ -111,26 +112,31 @@ class OrderClientController extends Controller
     {
         
         $product = Product::where('code', $request->product_code)->first();
+        $products = Product::all();
 
         
         if($request->action != "sell" && is_null($product)){
             return back()
-            ->with('error', 'El producto no existe');
+            ->with('error', 'El producto no existe')
+            ->with('products', $products);
         }else if($request->action != "sell" && $product->stock <= 0){
             return back()
-            ->with('error', 'El producto no tiene stock');
+            ->with('error', 'El producto no tiene stock')
+            ->with('products', $products);
         }
         
         switch($request->action){
             case "add_item":
                 $orderclient->addProduct($request, $product);
                 
-                return back()->with('success', 'Producto agregado');
+                return back()->with('success', 'Producto agregado')
+                ->with('products', $products);
                 break;
             case "remove_item":
                 $orderclient->removeProduct($product);
 
-                return back()->with('success', 'Producto eliminado');
+                return back()->with('success', 'Producto eliminado')
+                ->with('products', $products);
                 break;
             case "sell":
                 
@@ -138,7 +144,8 @@ class OrderClientController extends Controller
                     'order_state_id' => 2
                 ]);
 
-                return redirect()->route('orderclients.index')->with('success', 'Venta realizada');
+                return redirect()->route('orderclients.index')->with('success', 'Venta realizada')
+                ->with('products', $products);
                 break;
         }
     }

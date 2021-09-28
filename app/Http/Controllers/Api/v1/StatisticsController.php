@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
+use App\Models\Client;
 use App\Models\OrderClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -29,5 +30,17 @@ class StatisticsController extends Controller
         ->get();
 
         return response()->json($monthlySells);
+    }
+
+    public function bestClient()
+    {
+        $bestClient = Client::select(DB::raw('client.name , SUM(order_clients.total_price) AS total'))
+        ->join('order_clients', 'client.id', '=','order_clients.client_id')
+        ->whereRaw(DB::raw('DAY(oc.created_at) = DAY(CURRENT_DATE())'))
+        ->groupByRaw(DB::raw('name'))
+        ->orderByRaw('total')
+        ->get();
+
+        return response()->json($bestClient);
     }
 }

@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 bg-white rounded shadow-sm py-1">
-                <canvas id="dailySells" height="50">></canvas>
+                <canvas id="dailySells" height="70">></canvas>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 bg-white rounded shadow-sm my-3 py-1">
-                <canvas id="monthlySells" height="50">></canvas>
+                <canvas id="monthlySells" height="70">></canvas>
             </div>
         </div>
     </div>

@@ -13,12 +13,21 @@
                     <div class="form-row d-flex align-items-end">
                         <div class="form-group col-md-3 mb-0">
                             <label>Código producto</label>
-                            <input 
-                                type="text" 
-                                class="form-control" 
+                            <select
+                                class="selectpicker form-control" 
+                                data-live-search="true"
                                 name="product_code" 
-                                placeholder="2145"
-                            />
+                            >
+                                @foreach($products as $key => $product)
+                                    <option 
+                                        data-tokens="{{$product->name}}" 
+                                        value="{{$product->code}}"
+                                    >
+                                        {{$product->name}}
+                                    </option>
+                                @endforeach
+
+                            </select>
                         </div>
                         <div class="form-group col-md-2 mb-0">
                             <label>Cantidad</label>
@@ -101,4 +110,11 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('css')
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+@endsection
+@section('js')
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 @endsection
