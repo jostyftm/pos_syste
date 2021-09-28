@@ -48,7 +48,9 @@ class ProductController extends Controller
             'name.required' =>  'El nombre del producto es requerido',
         ]);
 
-        Product::create($request->all());
+        $product = new Product($request->all());
+        $product->sell_price = $request->buy_price + ($request->buy_price * 0.2);
+        $product->save();
 
         return redirect()->route('products.index')
         ->with('success', 'Producto creado con exito');

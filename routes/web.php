@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\v1\ClientController;
 use App\Http\Controllers\Api\v1\OrderClientController;
 use App\Http\Controllers\Api\v1\ProductController;
 use App\Http\Controllers\Api\v1\ProviderController;
+use App\Http\Controllers\Api\v1\StatisticsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -29,3 +30,9 @@ Route::resource('/providers', ProviderController::class);
 Route::resource('/products', ProductController::class);
 Route::resource('/clients', ClientController::class);
 Route::resource('/orderclients', OrderClientController::class);
+
+Route::prefix('statistics')->group(function(){
+
+    Route::get('/dailySells', [StatisticsController::class, 'dailySells']);
+    Route::get('/monthlySells', [StatisticsController::class, 'monthlySells']);
+});
