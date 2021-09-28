@@ -34,11 +34,11 @@ class StatisticsController extends Controller
 
     public function bestClient()
     {
-        $bestClient = Client::select(DB::raw('client.name , SUM(order_clients.total_price) AS total'))
-        ->join('order_clients', 'client.id', '=','order_clients.client_id')
-        ->whereRaw(DB::raw('DAY(oc.created_at) = DAY(CURRENT_DATE())'))
+        $bestClient = Client::select('clients.name',DB::raw('SUM(order_clients.total_price) AS total'))
+        ->join('order_clients', 'clients.id', '=','order_clients.client_id')
+        ->whereRaw(DB::raw('MONTH(order_clients.created_at) = MONTH(CURRENT_DATE())'))
         ->groupByRaw(DB::raw('name'))
-        ->orderByRaw('total')
+        ->orderByDesc('total')
         ->get();
 
         return response()->json($bestClient);

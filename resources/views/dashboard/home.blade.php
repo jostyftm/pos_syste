@@ -14,6 +14,27 @@
                 <canvas id="monthlySells" height="70">></canvas>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-6 bg-white rounded shadow-sm my-3 py-1">
+                <h5>Clientes del mes</h5>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>Cliente</td>
+                            <td>Total</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($bestClients as $key => $client)
+                            <tr>
+                                <td>{{ $client->name}}</td>
+                                <td>$ {{ number_format($client->total)}}</td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection
 

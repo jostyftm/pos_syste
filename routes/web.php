@@ -35,4 +35,5 @@ Route::prefix('statistics')->group(function(){
 
     Route::get('/dailySells', [StatisticsController::class, 'dailySells']);
     Route::get('/monthlySells', [StatisticsController::class, 'monthlySells']);
+    Route::get('/bestClient', [StatisticsController::class, 'bestClient']);
 });
