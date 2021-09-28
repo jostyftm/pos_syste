@@ -6,12 +6,12 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 bg-white rounded shadow-sm py-1">
-                <canvas id="dailySells" height="100">></canvas>
+                <canvas id="dailySells" height="50">></canvas>
             </div>
         </div>
         <div class="row">
             <div class="col-md-12 bg-white rounded shadow-sm my-3 py-1">
-                <canvas id="monthlySells" height="100">></canvas>
+                <canvas id="monthlySells" height="50">></canvas>
             </div>
         </div>
     </div>
@@ -98,10 +98,10 @@
                         label: 'Venta en el último año',
                         data: data[1],
                         backgroundColor: [
-                            'rgba(255, 99, 132, 0.2)'
+                            '#6f42c1'
                         ],
                         borderColor: [
-                            'rgba(255, 99, 132, 1)'
+                            '#6610f2'
                         ],
                         tension: 0.2,
                         borderWidth: 1
