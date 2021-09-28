@@ -6,6 +6,7 @@ use App\Models\Client;
 use App\Models\Model;
 use App\Models\OrderClient;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 class OrderClientFactory extends Factory
@@ -24,13 +25,15 @@ class OrderClientFactory extends Factory
      */
     public function definition()
     {
+        
+        
         $clients = Client::all()->pluck('id');
         $seller = User::role('seller')->get()->pluck('id');
 
         return [
             'client_id'         =>  $clients->random(),
             'seller_id'         =>  $seller->random(),
-            'order_state_id'    =>  2,
+            'order_state_id'    =>  2
         ];
     }
 }
